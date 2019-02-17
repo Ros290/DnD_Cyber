@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/concessionaria">
+	<WatchedResource>WEB-INF/web.xml</WatchedResource>
+	<ResourceLink global="jdbc/dnd_cyber"
+		name="jdbc/dnd_cyber" type="javax.sql.DataSource"></ResourceLink>
+</Context>
