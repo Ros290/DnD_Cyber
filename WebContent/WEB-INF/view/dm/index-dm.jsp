@@ -31,7 +31,7 @@
 					</form>
 				</td>
 				<td>
-					<form action="dm-destroy" method="GET">
+					<form action="dm-delete" method="GET">
 						<input type="hidden" name="id_dm" value="${dm.getId()}"> <input
 							type="submit" value="DELETE">
 					</form>

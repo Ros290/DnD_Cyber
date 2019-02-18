@@ -44,4 +44,10 @@ public class DmUtilsDAO {
 	public Dm findDm (int id) {
 		return em.getReference(Dm.class, id);
 	}
+	
+	public void removeDm (Dm dm ) {
+		tx.begin();
+		em.remove(dm);
+		tx.commit();
+	}
 }

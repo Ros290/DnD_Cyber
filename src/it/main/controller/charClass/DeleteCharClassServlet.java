@@ -1,4 +1,4 @@
-package it.main.controller;
+package it.main.controller.charClass;
 
 import java.io.IOException;
 
@@ -9,32 +9,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.main.model.Adventure;
-import it.main.utils.AdvUtilsDAO;
+import it.main.model.CharacterClass;
+import it.main.utils.CharClassUtilsDAO;
 
 /**
- * Servlet implementation class DestroyAdventureServlet
+ * Servlet implementation class DeleteCharClassServlet
  */
-@WebServlet("/adventure-destroy")
-public class DestroyAdventureServlet extends HttpServlet {
+@WebServlet("/char_class-delete")
+public class DeleteCharClassServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AdvUtilsDAO adao = new AdvUtilsDAO();
-		int id = Integer.parseInt(request.getParameter("id_adv"));
-		Adventure adv = adao.findAdv(id);
+		CharClassUtilsDAO ccdao = new CharClassUtilsDAO();
+		int id = Integer.parseInt(request.getParameter("id_charClass"));
+		CharacterClass charClass = ccdao.findCharacterClass(id);
 		try {
-			adao.removeAdv(adv);
-			String message = "SUCCESS : Adventure \"" + adv.getName() + "\" has been deleted from database!";
+			ccdao.removeCharacterClass(charClass);
+			String message = "SUCCESS : Character Class \"" + charClass.getName() + "\" has been deleted from database!";
 			request.setAttribute("SUCCESS", message);
 		}
 		catch(RollbackException e) {
 			String message = e.getMessage();
 			request.setAttribute("ERROR", message);
 		}
-		request.getRequestDispatcher("adventure-index").include(request, response);
+		request.getRequestDispatcher("char_class-index").include(request, response);
+
 	}
+
 }

@@ -1,4 +1,4 @@
-package it.main.controller;
+package it.main.controller.adventure;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ import it.main.utils.AdvUtilsDAO;
  * Servlet implementation class Adventure
  */
 @WebServlet("/adventure-index")
-public class IndexAdventureServlet extends HttpServlet {
+public class ReadAdventureServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**

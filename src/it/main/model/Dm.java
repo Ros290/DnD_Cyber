@@ -1,7 +1,6 @@
 package it.main.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -21,7 +20,7 @@ public class Dm implements Serializable {
 	@Column(name = "name_dm")
 	private String name;
 	
-	@OneToMany(mappedBy = "dm")
+	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "dm")
 	private List<Adventure> listAdventures;
 	
 	public Dm () {

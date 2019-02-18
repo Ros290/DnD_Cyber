@@ -10,6 +10,10 @@
 		<non-jta-data-source>java:comp/env/jdbc/dnd_cyber</non-jta-data-source>
 		<class>it.main.model.Dm</class>
 		<class>it.main.model.Adventure</class>
+		<class>it.main.model.Player</class>
+		<class>it.main.model.Race</class>
+		<class>it.main.model.CharacterClass</class>
+		<class>it.main.model.Character</class>
 		<properties>
 
 			<property name="hibernate.dialect"

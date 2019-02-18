@@ -29,7 +29,7 @@
 					</form>
 				</td>
 				<td>
-					<form action="adventure-destroy" method="GET">
+					<form action="adventure-delete" method="GET">
 						<input type="hidden" name="id_adv" value="${adv.getId()}">
 						<input type="submit" value="DELETE">
 					</form>

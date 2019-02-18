@@ -11,57 +11,55 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import it.main.model.Adventure;
+import it.main.model.Race;
 
-public class AdvUtilsDAO {
+public class RaceUtilsDAO {
 
 	private EntityManager em;
 	private EntityTransaction tx;
-
-	public AdvUtilsDAO() {
+	
+	public RaceUtilsDAO() {
 		em = UtilsDAO.getInstance().createEntityManager();
 		tx = em.getTransaction();
 	}
-
-	public void newAdv(Adventure adv) throws RollbackException {
-
+	
+	public void newRace (Race race) {
 		int columnNameSize = 0;
 		try {
-			columnNameSize = adv.getClass().getDeclaredField("name").getAnnotation(Column.class).length();
+			columnNameSize = race.getClass().getDeclaredField("name").getAnnotation(Column.class).length();
 		} catch (NoSuchFieldException | SecurityException e1) {
 			throw new RollbackException("INTERNAL ERROR!");
 		}
-		if (adv.getName().isEmpty()) {
+		if (race.getName().isEmpty()) {
 			String message = "ERROR : Name field is Empty!";
 			throw new RollbackException (message);
 		}
-		if (adv.getName().length() > columnNameSize) {
+		if (race.getName().length() > columnNameSize) {
 			String message ="ERROR : Name has too many characters (> " + columnNameSize + ")!";
 			throw new RollbackException(message);
 		}
-
+		
 		tx.begin();
-		em.merge(adv);
+		em.merge(race);
 		tx.commit();
-
 	}
-
-	public List<Adventure> getListAdv (){
+	
+	public List<Race> getListRaces (){
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Adventure> cq = cb.createQuery(Adventure.class);
-		Root<Adventure> adventure = cq.from(Adventure.class);
-		cq.select(adventure);
-		TypedQuery<Adventure> q = em.createQuery(cq);
+		CriteriaQuery<Race> cq = cb.createQuery(Race.class);
+		Root<Race> race = cq.from(Race.class);
+		cq.select(race);
+		TypedQuery<Race> q = em.createQuery(cq);
 		return q.getResultList();
 	}
-
-	public Adventure findAdv (int id) {
-		return em.find(Adventure.class, id);
+	
+	public Race findRace (int id) {
+		return em.find(Race.class, id);
 	}
 
-	public void removeAdv (Adventure adv) {
+	public void removeRace (Race race) {
 		tx.begin();
-		em.remove(adv);
+		em.remove(race);
 		tx.commit();
 	}
 }

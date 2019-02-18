@@ -11,57 +11,55 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import it.main.model.Adventure;
+import it.main.model.CharacterClass;
 
-public class AdvUtilsDAO {
+public class CharClassUtilsDAO {
 
 	private EntityManager em;
 	private EntityTransaction tx;
-
-	public AdvUtilsDAO() {
+	
+	public CharClassUtilsDAO() {
 		em = UtilsDAO.getInstance().createEntityManager();
 		tx = em.getTransaction();
 	}
-
-	public void newAdv(Adventure adv) throws RollbackException {
-
+	
+	public void newCharacterClass (CharacterClass characterClass) {
 		int columnNameSize = 0;
 		try {
-			columnNameSize = adv.getClass().getDeclaredField("name").getAnnotation(Column.class).length();
+			columnNameSize = characterClass.getClass().getDeclaredField("name").getAnnotation(Column.class).length();
 		} catch (NoSuchFieldException | SecurityException e1) {
 			throw new RollbackException("INTERNAL ERROR!");
 		}
-		if (adv.getName().isEmpty()) {
+		if (characterClass.getName().isEmpty()) {
 			String message = "ERROR : Name field is Empty!";
 			throw new RollbackException (message);
 		}
-		if (adv.getName().length() > columnNameSize) {
+		if (characterClass.getName().length() > columnNameSize) {
 			String message ="ERROR : Name has too many characters (> " + columnNameSize + ")!";
 			throw new RollbackException(message);
 		}
-
+		
 		tx.begin();
-		em.merge(adv);
+		em.merge(characterClass);
 		tx.commit();
-
 	}
-
-	public List<Adventure> getListAdv (){
+	
+	public List<CharacterClass> getListCharacterClasses (){
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Adventure> cq = cb.createQuery(Adventure.class);
-		Root<Adventure> adventure = cq.from(Adventure.class);
-		cq.select(adventure);
-		TypedQuery<Adventure> q = em.createQuery(cq);
+		CriteriaQuery<CharacterClass> cq = cb.createQuery(CharacterClass.class);
+		Root<CharacterClass> characterClass = cq.from(CharacterClass.class);
+		cq.select(characterClass);
+		TypedQuery<CharacterClass> q = em.createQuery(cq);
 		return q.getResultList();
 	}
-
-	public Adventure findAdv (int id) {
-		return em.find(Adventure.class, id);
+	
+	public CharacterClass findCharacterClass (int id) {
+		return em.find(CharacterClass.class, id);
 	}
 
-	public void removeAdv (Adventure adv) {
+	public void removeCharacterClass (CharacterClass characterClass) {
 		tx.begin();
-		em.remove(adv);
+		em.remove(characterClass);
 		tx.commit();
 	}
 }

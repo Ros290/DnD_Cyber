@@ -1,4 +1,4 @@
-package it.main.controller;
+package it.main.controller.player;
 
 import java.io.IOException;
 
@@ -9,39 +9,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.main.model.Adventure;
-import it.main.utils.AdvUtilsDAO;
-import it.main.utils.DmUtilsDAO;
+import it.main.model.Player;
+import it.main.utils.PlayerUtilsDAO;
 
 /**
- * Servlet implementation class CreateAdventureController
+ * Servlet implementation class CreatePlayerServlet
  */
-@WebServlet("/adventure-create")
-public class CreateAdventureServlet extends HttpServlet {
+@WebServlet("/player-create")
+public class CreatePlayerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DmUtilsDAO dmdao = new DmUtilsDAO();
-		request.setAttribute("listDm", dmdao.getListDm());
-		request.getRequestDispatcher("/WEB-INF/view/adventure/create-adv.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/view/player/create-player.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DmUtilsDAO dmdao = new DmUtilsDAO();
-		AdvUtilsDAO adao = new AdvUtilsDAO();
-		Adventure adv = new Adventure();
-		adv.setId(0);
-		adv.setName(request.getParameter("name_adv"));
-		adv.setDm(dmdao.findDm(Integer.parseInt(request.getParameter("id_dm"))));
+		PlayerUtilsDAO pdao = new PlayerUtilsDAO();
+		Player player = new Player();
+		player.setId(0);
+		player.setName(request.getParameter("name_player"));
+		player.setListCharacters(null);
 		try {
-			adao.newAdv(adv);
-			String message = "SUCCESS : Adventure \"" + adv.getName() + "\" has been added into database!";
+			pdao.newPlayer(player);
+			String message = "SUCCESS : Player \"" + player.getName() + "\" has been added into database!";
 			request.setAttribute("SUCCESS", message);
 		}
 		catch(RollbackException e) {
@@ -50,4 +46,5 @@ public class CreateAdventureServlet extends HttpServlet {
 		}
 		doGet(request, response);
 	}
+
 }
