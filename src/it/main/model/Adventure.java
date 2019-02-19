@@ -1,6 +1,8 @@
 package it.main.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.*;
@@ -24,6 +26,10 @@ public class Adventure implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_dm")
 	private Dm dm;
+	
+	@ManyToMany (mappedBy = "adventures")
+	List<Character> party = new ArrayList<Character>();
+	
 		
 	public Adventure() {
 		super();
@@ -53,12 +59,19 @@ public class Adventure implements Serializable {
 		this.dm = dm;
 	}
 	
+	public List<Character> getParty(){
+		return party;
+	}
+	
+	public void setParty(List<Character> party) {
+		this.party = party;
+	}
+	
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Adventure)) return false;
         Adventure that = (Adventure) o;
-        return Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getDm(), that.getDm());
+        return getId() == that.getId();
     }
    
 }

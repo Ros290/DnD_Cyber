@@ -2,6 +2,9 @@ package it.main.model;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -15,6 +18,7 @@ public class Character implements Serializable {
 
 	   
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id_pc")
 	private int id;
 	@Column(name = "name_pc", length = 20)
@@ -28,6 +32,13 @@ public class Character implements Serializable {
 	@ManyToOne
 	@JoinColumn (name = "id_player")
 	private Player player;
+	
+	@ManyToMany
+	@JoinTable(name = "party",
+	        joinColumns = @JoinColumn(name = "id_pc"),
+	        inverseJoinColumns = @JoinColumn(name = "id_adv")
+	    )
+	private List<Adventure> adventures = new ArrayList<Adventure>();
 	private static final long serialVersionUID = 1L;
 
 	public Character() {
@@ -69,4 +80,11 @@ public class Character implements Serializable {
 		this.player = player;
 	}
    
+	public List<Adventure> getListAdventures(){
+		return adventures;
+	}
+	
+	public void setListAdventures(List<Adventure> adventures) {
+		this.adventures = adventures;
+	}
 }

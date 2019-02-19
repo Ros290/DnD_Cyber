@@ -21,22 +21,26 @@
 					<c:out value="${charClass.getName()}"></c:out>
 				</option>
 			</c:forEach>
-		</select> <br>
-		<br> <label>Race</label> <select name="id_race">
+		</select> <br> <br> <label>Race</label> <select name="id_race">
 			<c:forEach items="${requestScope.listRaces}" var="race">
 				<option value="${race.getId()}">
 					<c:out value="${race.getName()}"></c:out>
 				</option>
 			</c:forEach>
-		</select> <br>
-		<br> <label>Player</label> <select name="id_player">
+		</select> <br> <br> <label>Player</label> <select name="id_player">
 			<c:forEach items="${requestScope.listPlayers}" var="player">
 				<option value="${player.getId()}">
 					<c:out value="${player.getName()}"></c:out>
 				</option>
 			</c:forEach>
-		</select> <br>
-		<br> <input type="submit" value="Create">
+		</select> <br> <label>Adventures</label> <select name="adventures"
+			multiple>
+			<c:forEach items="${requestScope.listAdventures}" var="adventure">
+				<option value="${adventure.getId()}">
+					<c:out value="${adventure.getName()}"></c:out>
+				</option>
+			</c:forEach>
+		</select> <br> <input type="submit" value="Create">
 	</form>
 </body>
 </html>

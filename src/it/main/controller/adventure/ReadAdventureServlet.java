@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import it.main.model.Adventure;
 import it.main.utils.AdvUtilsDAO;
 
 /**
@@ -30,5 +31,10 @@ public class ReadAdventureServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		AdvUtilsDAO adao = new AdvUtilsDAO();
+		int id = Integer.parseInt(request.getParameter("id_adventure"));
+		Adventure adventure = adao.findAdv(id);
+		request.setAttribute("adventure", adventure);
+		request.getRequestDispatcher("/WEB-INF/view/adventure/show-adventure.jsp").forward(request, response);
 	}
 }

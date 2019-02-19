@@ -23,6 +23,12 @@
 				<td><c:out value="${adv.getName()}"></c:out></td>
 				<td><c:out value="${adv.getDm().getName()}"></c:out></td>
 				<td>
+					<form action="adventure-index" method="POST">
+						<input type="hidden" name="id_adventure" value="${adv.getId()}">
+						<input type="submit" value="SHOW DETAILS">
+					</form>
+				</td>
+				<td>
 					<form action="adventure-update" method="GET">
 						<input type="hidden" name="id_adv" value="${adv.getId()}">
 						<input type="submit" value="UPDATE">

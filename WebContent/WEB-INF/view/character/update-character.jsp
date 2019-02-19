@@ -41,6 +41,22 @@
 			</c:forEach>
 		</select> <br>
 		<br> 
+		<label>Adventures Available (select one or more adventure to join)</label> <select name="addAdventures"
+			multiple>
+			<c:forEach items="${requestScope.listAdventures}" var="adventure">
+				<option value="${adventure.getId()}">
+					<c:out value="${adventure.getName()}"></c:out>
+				</option>
+			</c:forEach>
+		</select><br><br>
+		<label>Adventures already playing (select one or more adventure to remove)</label> <select name="removeAdventures"
+			multiple>
+			<c:forEach items="${requestScope.character.getListAdventures()}" var="adventure">
+				<option value="${adventure.getId()}">
+					<c:out value="${adventure.getName()}"></c:out>
+				</option>
+			</c:forEach>
+		</select>
 		<input type = "hidden" name = "id_character" value = "${requestScope.character.getId() }">
 		<input type="submit" value="Update">
 	</form>
